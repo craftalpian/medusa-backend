@@ -2,23 +2,23 @@ const dotenv = require('dotenv')
 
 let ENV_FILE_NAME = '';
 switch (process.env.NODE_ENV) {
-	case 'production':
-		ENV_FILE_NAME = '.env.production';
-		break;
-	case 'staging':
-		ENV_FILE_NAME = '.env.staging';
-		break;
-	case 'test':
-		ENV_FILE_NAME = '.env.test';
-		break;
-	case 'development':
-	default:
-		ENV_FILE_NAME = '.env';
-		break;
+  case 'production':
+    ENV_FILE_NAME = '.env.production';
+    break;
+  case 'staging':
+    ENV_FILE_NAME = '.env.staging';
+    break;
+  case 'test':
+    ENV_FILE_NAME = '.env.test';
+    break;
+  case 'development':
+  default:
+    ENV_FILE_NAME = '.env';
+    break;
 }
 
 try {
-	dotenv.config({ path: process.cwd() + '/' + ENV_FILE_NAME });
+  dotenv.config({ path: process.cwd() + '/' + ENV_FILE_NAME });
 } catch (e) {
 }
 
@@ -54,16 +54,27 @@ const plugins = [
   // },
 ];
 
+// const DB_USERNAME = process.env.DB_USERNAME
+// const DB_PASSWORD = process.env.DB_PASSWORD
+// const DB_HOST = process.env.DB_HOST
+// const DB_PORT = process.env.DB_PORT
+// const DB_DATABASE = process.env.DB_DATABASE
+
+// const DATABASE_URL =
+//   `postgres://${DB_USERNAME}:${DB_PASSWORD}` +
+//   `@${DB_HOST}:${DB_PORT}/${DB_DATABASE}`
+
 module.exports = {
   projectConfig: {
     // redis_url: REDIS_URL,
     // For more production-like environment install PostgresQL
-    // database_url: DATABASE_URL,
-    // database_type: "postgres",
+    database_url: DATABASE_URL,
+    database_type: "postgres",
     database_database: "./medusa-db.sql",
     database_type: "sqlite",
     store_cors: STORE_CORS,
     admin_cors: ADMIN_CORS,
+    database_extra: { ssl: { rejectUnauthorized: false } },
   },
   plugins,
 };
